@@ -39,6 +39,10 @@ Month pillar gets the highest weight because the month branch (月令) sets the 
 | 囚 Qiu (imprisoned) | ×0.6 | item's element controls month branch's element |
 | 死 Si (dead) | ×0.3 | month branch's element controls item's element |
 
+## 4. Branch relationship modifiers (刑沖合會害破)
+
+Before finalizing each branch's score, check all pillar-pair combinations for 合/會/沖/刑/害/破 (see `references/xingchonghehui.md` for full definitions and coefficients). Damage-type relationships (沖/刑/害/破) discount the affected branch's main-qi score; combination-type relationships (六合/三合/三會/半合) discount the main-qi score *and* add a separate resonance bonus credited to the combined element. Apply these modifiers to the base×positional×seasonal score from steps 1–3 above, then carry the adjusted numbers into the final support/drain tally.
+
 ## Worked example
 
 Chart: 己卯 丙寅 庚午 癸未 — Day Master 庚 (Yang Metal), month branch 寅 (Wood).

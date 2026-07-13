@@ -24,8 +24,9 @@ A structured method for reading a four-pillar (八字) chart: from raw stems/bra
 2. **List Five Elements + Yin-Yang** for every stem and every branch (see `references/stems_branches.md`).
 3. **Expand hidden stems (藏干)** for each branch — main qi / middle qi / residual qi (see `references/hidden_stems.md`).
 4. **Compute Ten Gods (十神)** for every stem and every hidden stem relative to the Day Master (see `references/ten_gods.md`).
-5. **Score Day Master strength** using the weighted formula (see `references/strength_formula.md`), then classify 身强/身弱 and note likely 喜用神 (favorable elements) at a high level if asked.
-6. Only go into interpretive meaning (career, relationships, health) if the user asks — default to the structural mechanics first.
+5. **Check branch relationships (刑沖合會害破)** across all pillar pairs — combinations, clashes, punishments, harms, breaks (see `references/xingchonghehui.md`). Apply the relationship modifiers there to adjust branch scores before finalizing strength.
+6. **Score Day Master strength** using the weighted formula (see `references/strength_formula.md`), folding in the branch-relationship modifiers from step 5, then classify 身强/身弱 and note likely 喜用神 (favorable elements) at a high level if asked.
+7. Only go into interpretive meaning (career, relationships, health) if the user asks — default to the structural mechanics first.
 
 ## Tone and pacing notes (from the source conversation)
 
@@ -40,6 +41,7 @@ Full tables are in `references/`. Load only what's needed:
 - `references/stems_branches.md` — 10 stems + 12 branches, Five Element + Yin-Yang for each, plus the 12-month calendar mapping.
 - `references/hidden_stems.md` — full 藏干 table (main/middle/residual per branch) with the seasonal-transition logic (四正/四长生/四库 categories) and the twelve-stage (十二长生) long-life cycle table used to explain exceptions like 亥/午.
 - `references/ten_gods.md` — the Ten Gods derivation rule (生克关系 + 阴阳同异) and full 10x10 lookup table for any Day Master.
+- `references/xingchonghehui.md` — 六合/三合/三會/六沖/三刑/自刑/六害/六破 definitions, plus the modifier coefficients (discount for damage-type relationships, discount + bonus for combination-type relationships) that fold into the strength formula, with a worked example.
 - `references/strength_formula.md` — the weighted scoring formula (base score by stem/main/middle/residual qi × positional weight × seasonal 旺相休囚死 multiplier), with a fully worked example.
 
 ## Example interaction shape
