@@ -1,20 +1,7 @@
 ---
 name: bazi-analysis
 description: >
-  Use this skill whenever the user gives a BaZi (四柱/八字, Four Pillars of Destiny) chart —
-  four stem-branch pairs like "丁丑 壬子 甲戌 辛未" — or asks to analyze one, or asks about any
-  traditional BaZi concept. Covers: identifying the Day Master and Five Elements/Yin-Yang;
-  hidden stems (藏干); Ten Gods (十神); regular pattern / structure (格局, 八正格 or 建禄/月刃);
-  branch relationships (刑沖合會害破); Day Master strength/weakness (身强身弱) via a calibrated
-  weighted formula; following structures for extreme charts (従格, incl. 従财/従杀/従儿/従旺/従強/
-  専旺); seasonal adjustment (调候); bridging conflicting Ten Gods (通关); synthesizing all of the
-  above into one 喜用神/忌神 verdict; Major Luck Cycles and Annual Fortune (大运流年); and common
-  Special Stars and the Void (神煞, 空亡 — 桃花/驿马/华盖/魁罡/天乙贵人/etc.). Trigger this for
-  requests like "算一下这个八字", "十神怎么算", "身强身弱", "喜用神", "什么格局", "从格吗",
-  "调候用神", "大运流年怎么看", "有没有桃花", "空亡在哪", or any BaZi/Four Pillars chart or
-  concept the user raises, even without using the word "skill." This is an intellectual/analytical
-  framework, not fortune-telling advice — always frame conclusions as traditional-system outputs,
-  not deterministic predictions.
+  Use this skill whenever the user provides or asks to analyze a BaZi (Four Pillars/四柱/八字) chart (four stem-branch pairs, e.g. 丁丑 壬子 甲戌 辛未) or asks about any BaZi concept. Covers: Day Master, Five Elements/Yin-Yang, hidden stems (藏干), Ten Gods (十神), patterns/structures (格局、建禄、月刃), branch interactions (刑冲合会害破), Day Master strength (身强身弱), following structures/extreme charts (从格：从财、从杀、从儿、从旺、从强、专旺), seasonal adjustment (调候), bridging Ten Gods (通关), favorable/unfavorable elements (喜用神/忌神), Major Luck Cycles and Annual Fortune (大运流年), and common Special Stars/Void (神煞、空亡，如桃花、驿马、华盖、魁罡、天乙贵人等). Trigger for requests like “算一下这个八字”, “十神怎么算”, “身强身弱”, “喜用神”, “什么格局”, “从格吗”, “调候用神”, “大运流年怎么看”, “有没有桃花”, “空亡在哪”, or any BaZi-related question. Present results as analysis within the traditional BaZi framework, not deterministic predictions.
 ---
 
 # BaZi (Four Pillars) Analysis
