@@ -40,3 +40,7 @@ Groupings used elsewhere:
 - **四正** (purest, single/near-single qi): 子午卯酉
 - **四长生** (season-starters, 3 qi each, residual always 戊): 寅申巳亥
 - **四库/四墓** (season-closers, 3 qi each, residual = prior season's tail): 辰戌丑未
+
+## Cross-validation
+
+When `bash_tool` is available, cross-check computed year/month pillars against a library (`sxtwl` primary — see `paipan.md`) rather than relying on this table alone for anything beyond simple lookups. This table remains the reference for teaching/explaining *why*, and the fallback when code execution isn't available — it isn't replaced by the library, just checked against it.

@@ -4,23 +4,31 @@ Use this file whenever the person gives a **raw birth date/time** (solar/Gregori
 
 ## Primary method: use a library, not manual arithmetic
 
-**Don't hand-calculate the pillars from memory as the default method.** Manual calculation (memorized epoch anchors, approximate 节气 dates, counting days across decades by hand) is genuinely error-prone — there's real risk of an off-by-one on the day-count, or an approximate 节气 date being wrong by the day or two that actually matters for someone born near a boundary. A proper library computes 节气 astronomically (to the exact date and time, not an approximate calendar date) and eliminates manual day-counting entirely.
+**Don't hand-calculate the pillars from memory as the default method.** Manual calculation (memorized epoch anchors, approximate 节气 dates, counting days across decades by hand) is genuinely error-prone — there's real risk of an off-by-one on the day-count, or an approximate 节气 date being wrong by the day or two that actually matters for someone born near a boundary. A proper library computes 节气 astronomically (to the exact date and time, using actual solar-position calculation, not a precomputed lookup table of dates) and eliminates manual day-counting entirely.
 
-Use `bash_tool` to install and run one:
+**Library choice matters — these aren't interchangeable, and none of them are "brute-force enumeration" for the core calculation, but they differ in how much unrelated baggage they carry:**
+
+- **`sxtwl` (primary recommendation)**: computes everything from Julian Day / J2000-epoch solar-position astronomy — genuinely algorithmic, not a lookup table of pre-computed dates. Small, self-contained (~4MB, almost entirely the compiled astronomical calculation itself), no unrelated bundled data. Use this as the default.
+- **`lunar-python`**: also astronomically-driven for the core 排盘 calculation, and has the most convenient one-line API (`getEightChar()` returns all four pillars directly). But the package also bundles a large, unrelated embedded dataset for traditional 老黄历 宜忌 (daily auspicious/inauspicious activity lookups) that has nothing to do with computing pillars — inflates the package without adding relevant capability. Fine to use for its convenient API, just be aware of what else it's carrying.
+- **`cnlunar`**: smallest footprint (~260KB), also algorithmic. Good as a third independent cross-check.
 
 ```bash
-pip install lunar-python --break-system-packages
+pip install sxtwl --break-system-packages
 ```
 
 ```python
-from lunar_python import Solar
-solar = Solar.fromYmdHms(YEAR, MONTH, DAY, HOUR, MINUTE, 0)
-lunar = solar.getLunar()
-ec = lunar.getEightChar()
-print(ec.getYear(), ec.getMonth(), ec.getDay(), ec.getTime())
+import sxtwl
+Gan = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]
+Zhi = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
+day = sxtwl.fromSolar(YEAR, MONTH, DAY)
+year_gz = Gan[day.getYearGZ().tg] + Zhi[day.getYearGZ().dz]
+month_gz = Gan[day.getMonthGZ().tg] + Zhi[day.getMonthGZ().dz]
+day_gz = Gan[day.getDayGZ().tg] + Zhi[day.getDayGZ().dz]
+hour_gz_obj = day.getHourGZ(HOUR)  # HOUR = the true-solar-time-corrected hour, see below
+hour_gz = Gan[hour_gz_obj.tg] + Zhi[hour_gz_obj.dz]
 ```
 
-**Cross-validate** by also running `sxtwl` and/or `cnlunar` (same installer pattern) and confirming they agree before reporting the chart — these are independent implementations, so agreement across 2–3 of them is meaningful confirmation, not redundant effort. If they disagree, that's a signal to investigate rather than pick one arbitrarily (check the birth time is right at a 节气 or 时辰 boundary, where legitimate implementation differences in rounding can surface).
+**Cross-validate** by also running `lunar-python` and/or `cnlunar` (same installer pattern) and confirming they agree before reporting the chart — these are independent implementations, so agreement across 2–3 of them is meaningful confirmation, not redundant effort. If they disagree, that's a signal to investigate rather than pick one arbitrarily (check the birth time is right at a 节气 or 时辰 boundary, where legitimate implementation differences in rounding can surface).
 
 **True solar time still needs manual pre-processing**: these libraries convert *clock* time to ganzhi — they don't know the birth location, so they don't apply the longitude correction described in §4 below. If the birth location is known, apply that correction to the input time *before* passing it to the library, especially when the birth time is within ~15–20 minutes of a 时辰 boundary (2-hour block) where the correction could flip the hour branch.
 

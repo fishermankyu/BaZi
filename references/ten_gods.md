@@ -29,3 +29,7 @@ Rough drain-intensity ordering (traditional consensus, not universal): **官杀 
 - 丁 (Yin Fire), controls Metal, different Yin-Yang → **正官**
 
 To get the Ten God for *any* Day Master + any stem/hidden-stem, just run the two-step check above — don't try to memorize a full 10x10 table, the rule generalizes cleanly.
+
+## Cross-validation
+
+When `bash_tool` is available, cross-check Ten God output against `lunar-python`'s `EightChar.getYearShiShenGan()` / `getMonthShiShenGan()` / `getTimeShiShenGan()` (stems) and `getYearShiShenZhi()` / `getMonthShiShenZhi()` / `getDayShiShenZhi()` / `getTimeShiShenZhi()` (hidden stems in branches) — see `paipan.md`. This two-step rule remains the reference for teaching/explaining *why* a given Ten God applies, and the fallback when code execution isn't available.

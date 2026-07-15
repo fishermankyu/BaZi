@@ -47,3 +47,7 @@ This is the twelve-stage life-cycle (十二长生) system layered on top — a *
 ## Relative weight within a branch (approximate, schools vary)
 
 Main qi > Middle qi > Residual qi. See `strength_formula.md` for suggested numeric ratios used in scoring.
+
+## Cross-validation
+
+When `bash_tool` is available, cross-check 藏干 output against `lunar-python`'s `EightChar.getYearHideGan()` / `getMonthHideGan()` / `getDayHideGan()` / `getTimeHideGan()` (see `paipan.md`) rather than relying on this table alone for anything beyond simple lookups. This table remains the reference for teaching/explaining *why* (e.g. the 亥/午 exceptions above), and the fallback when code execution isn't available.
