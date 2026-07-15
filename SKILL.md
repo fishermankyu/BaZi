@@ -2,16 +2,19 @@
 name: bazi-analysis
 description: >
   Use this skill whenever the user gives a BaZi (四柱/八字, Four Pillars of Destiny) chart —
-  four stem-branch pairs like "丁丑 壬子 甲戌 辛未" — or asks to analyze one. Covers identifying
-  the Day Master, listing Heavenly Stems/Earthly Branches with Yin-Yang and Five Elements,
-  finding hidden stems (藏干, i.e. main/middle/residual qi) for each branch, computing the
-  Ten Gods (十神) relative to the Day Master, and scoring day-master strength/weakness
-  (身强身弱) using a weighted formula that accounts for stem vs. branch, hidden-qi depth,
-  position, and seasonal (month-branch) power. Trigger this for requests like "算一下这个八字",
-  "十神怎么算", "身强身弱", "喜用神", or any BaZi/Four Pillars chart the user pastes in, even
-  without using the word "skill." This is an intellectual/analytical framework, not
-  fortune-telling advice — always frame conclusions as traditional-system outputs, not
-  deterministic predictions.
+  four stem-branch pairs like "丁丑 壬子 甲戌 辛未" — or asks to analyze one, or asks about any
+  traditional BaZi concept. Covers: identifying the Day Master and Five Elements/Yin-Yang;
+  hidden stems (藏干); Ten Gods (十神); regular pattern / structure (格局, 八正格 or 建禄/月刃);
+  branch relationships (刑沖合會害破); Day Master strength/weakness (身强身弱) via a calibrated
+  weighted formula; following structures for extreme charts (従格, incl. 従财/従杀/従儿/従旺/従強/
+  専旺); seasonal adjustment (调候); bridging conflicting Ten Gods (通关); synthesizing all of the
+  above into one 喜用神/忌神 verdict; Major Luck Cycles and Annual Fortune (大运流年); and common
+  Special Stars and the Void (神煞, 空亡 — 桃花/驿马/华盖/魁罡/天乙贵人/etc.). Trigger this for
+  requests like "算一下这个八字", "十神怎么算", "身强身弱", "喜用神", "什么格局", "从格吗",
+  "调候用神", "大运流年怎么看", "有没有桃花", "空亡在哪", or any BaZi/Four Pillars chart or
+  concept the user raises, even without using the word "skill." This is an intellectual/analytical
+  framework, not fortune-telling advice — always frame conclusions as traditional-system outputs,
+  not deterministic predictions.
 ---
 
 # BaZi (Four Pillars) Analysis
@@ -20,11 +23,13 @@ A structured method for reading a four-pillar (八字) chart: from raw stems/bra
 
 ## Triage first — how much depth does this request actually need?
 
-Before running the workflow, judge whether the person wants a quick answer or a full walkthrough. Signals for **quick**: a narrow question ("我是身强还是身弱", "这个月对我好不好"), no request to see the derivation, casual phrasing. Signals for **full**: they paste a chart cold and ask to "算一下"/analyze it, ask to be walked through the logic, or are visibly in learning mode (see Tone notes below).
+Before running the workflow, judge whether the person wants a quick answer or a full walkthrough — this is a **depth** decision, separate from **topic** (see below). Signals for **quick**: a narrow question ("我是身强还是身弱", "这个月对我好不好"), no request to see the derivation, casual phrasing. Signals for **full**: they paste a chart cold and ask to "算一下"/analyze it, ask to be walked through the logic, or are visibly in learning mode (see Tone notes below).
 
-- **Quick answer**: give the specific thing asked (e.g. just the 身强/身弱 classification, or just 喜用神) in a sentence or two. Run 従格/调候/通关 checks silently in the background only insofar as they change the headline answer (e.g. don't say "身弱" if it's actually a confirmed 従格 that inverts the reading) — but don't narrate the check itself or walk through congge.md/diaohou.md/tongguan.md's reasoning unless asked. One line answer, not a report.
-- **Full walkthrough**: run the complete 13-step workflow below, showing derivation at each stage per the Tone notes.
+- **Quick answer**: give the specific thing asked (e.g. just the 身强/身弱 classification, or just 喜用神, or just the 格局 name) in a sentence or two. Run 格局/従格/调候/通关 checks silently in the background only insofar as they change the headline answer (e.g. don't say "身弱" if it's actually a confirmed 従格 that inverts the reading) — but don't narrate the check itself or walk through gejv.md/congge.md/diaohou.md/tongguan.md's reasoning unless asked. One line answer, not a report.
+- **Full walkthrough**: run steps 1–11 below in full, showing derivation at each stage per the Tone notes.
 - If genuinely ambiguous, default toward the shorter answer and offer to go deeper — don't pre-emptively dump the full derivation on someone who didn't ask for it.
+
+**Topic** is independent of depth: steps 12 (大运流年) and 13 (神煞/空亡) only run when the person actually asks about timing/a specific year, or about a named 神煞/空亡 — regardless of whether the rest of the answer is quick or a full walkthrough. Don't run them just because it's a "full walkthrough" of the static chart, and don't skip them in a "quick answer" if that's specifically what was asked.
 
 ## Workflow (for full walkthroughs)
 
@@ -40,7 +45,8 @@ Before running the workflow, judge whether the person wants a quick answer or a 
 10. **Check 通关 (bridging)** — see `references/tongguan.md`. Only relevant when two Ten-God categories are in direct, roughly-matched 克 conflict. Verify the bridging element is actually present and rooted (don't recommend a bridge that isn't on the chart — say so if missing instead), and check the conflict isn't actually the chart's own 扶抑-prescribed cure before suggesting a bridge (e.g. don't bridge away 官杀 attacking a Day Master that `strength_formula.md` already flagged as wanting exactly that). 通关 is supplementary to 扶抑, not a replacement for it.
 11. **Synthesize into one verdict** — see `references/zonghecaijue.md`. Don't report steps 5/7/8/9/10 as five separate paragraphs; merge them via the arbitration hierarchy there (従格 overrides all > 格局's own 喜忌 as default frame > 调候 overrides only on genuine unmet extreme-month need > 通关 narrowest/supplementary > 扶抑 Score% as continuous cross-check, not a sixth vote) and close with the one-line-identity + 喜用神 + 忌神 (+ optional tension note) template given there.
 12. **If asked about a specific age/year, or about 运势/大运/流年** — see `references/dayunliunian.md`. Determine 顺/逆 排 (year stem yin-yang × gender), list the 大运 sequence from the month pillar with 起运年龄, compute the relevant 流年 pillar, and check both against step 11's 喜用神/忌神 conclusion — layering in 天克地冲/冲提纲/岁运并临/合 as applicable. This is a distinct, opt-in step: don't run it unless the person asked about timing, a specific year, or "运势" — it doesn't apply to a pure structural reading of the original chart.
-13. Only go into interpretive meaning (career, relationships, health) if the user asks — default to the structural mechanics first.
+13. **If asked about a specific 神煞 (桃花/驿马/华盖/etc.) or about 空亡** — see `references/shenshakongwang.md`. Look up the relevant marker(s) using the fixed lookup rules there, and read the result relative to whether it lands on a 喜用神 or 忌神 per step 11's conclusion. Also opt-in — supplementary color, not part of the core structural read, and never overrides steps 5–11's conclusions.
+14. Only go into interpretive meaning (career, relationships, health) if the user asks — default to the structural mechanics first.
 
 ## Tone and pacing notes (from the source conversation)
 
@@ -63,6 +69,7 @@ Full tables are in `references/`. Load only what's needed:
 - `references/tongguan.md` — 通关 (bridging) rules: the general X克Y→bridge-element-Z rule, the four Ten-God fixed pairings (财印/官比劫/伤官见官/比劫夺财), strength-matching and "don't bridge away a needed cure" restrictions, and calibration tests.
 - `references/zonghecaijue.md` — synthesis rules: the arbitration hierarchy for merging 格局/扶抑/従格/调候/通关 into one verdict, plus the output template (one-line identity + 喜用神 + 忌神 + optional tension note) for both quick and full-walkthrough answers.
 - `references/dayunliunian.md` — 大运流年 (Major Luck Cycles & Annual Fortune) rules: 排大运 calculation (顺逆排, 起运年龄), 排流年, the 命局>大运>流年 nesting priority, and how to read a 大运/流年 pillar against the chart (Ten God check, 天克地冲, 冲提纲, palace-to-life-domain mapping, 岁运并临, combinations). Opt-in — only relevant when asked about timing/a specific year.
+- `references/shenshakongwang.md` — 神煞与空亡 (Special Stars & Void) rules: fixed lookup tables for 9 common 神煞 (天乙贵人/文昌/桃花/驿马/华盖/将星/魁罡/羊刃/天德月德), the 六旬空亡 lookup and its modifiers (冲/合/填实), and how both read relative to 喜用神/忌神. Opt-in, supplementary color only.
 
 ## Example interaction shape
 
@@ -81,5 +88,6 @@ These references cite numbers or conclusions defined canonically in *other* file
 | 格局 喜/忌 table per pattern | `gejv.md` | `zonghecaijue.md` (arbitration hierarchy step 2), `tongguan.md` (checks before naming a bridge) |
 | 调候's "先解冻，后论生克" priority rule | `diaohou.md` | `zonghecaijue.md` (arbitration hierarchy step 3), `SKILL.md` step 9 |
 | "Don't bridge away a needed cure" restriction | `tongguan.md` | `zonghecaijue.md` (arbitration hierarchy step 4) |
+| Final 喜用神/忌神 synthesis (per chart) | `zonghecaijue.md` (output of the full arbitration hierarchy) | `dayunliunian.md` (step 12, checks 大运/流年 Ten Gods against this), `shenshakongwang.md` (step 13, reads 神煞/空亡 relative to this) |
 
 **When adding a new reference file**: if it restates a number or rule owned elsewhere, phrase it as a pointer ("see X §Y") rather than duplicating the literal value, and add a row to this table. This keeps the number of places any single fact needs updating close to one.
