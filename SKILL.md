@@ -1,7 +1,18 @@
 ---
 name: bazi-analysis
 description: >
-  Use this skill whenever the user provides or asks to analyze a BaZi (Four Pillars/四柱/八字) chart (four stem-branch pairs, e.g. 丁丑 壬子 甲戌 辛未) or asks about any BaZi concept. Covers: Day Master, Five Elements/Yin-Yang, hidden stems (藏干), Ten Gods (十神), patterns/structures (格局、建禄、月刃), branch interactions (刑冲合会害破), Day Master strength (身强身弱), following structures/extreme charts (从格：从财、从杀、从儿、从旺、从强、专旺), seasonal adjustment (调候), bridging Ten Gods (通关), favorable/unfavorable elements (喜用神/忌神), Major Luck Cycles and Annual Fortune (大运流年), and common Special Stars/Void (神煞、空亡，如桃花、驿马、华盖、魁罡、天乙贵人等). Trigger for requests like “算一下这个八字”, “十神怎么算”, “身强身弱”, “喜用神”, “什么格局”, “从格吗”, “调候用神”, “大运流年怎么看”, “有没有桃花”, “空亡在哪”, or any BaZi-related question. Present results as analysis within the traditional BaZi framework, not deterministic predictions.
+  Use this skill whenever the user gives a BaZi (四柱/八字, Four Pillars of Destiny) chart, a raw
+  birth date/time to convert into one, or asks about any BaZi concept. Covers: computing the four
+  pillars from a birth date/time (排盘); Day Master, Five Elements/Yin-Yang; hidden stems (藏干);
+  Ten Gods (十神); regular pattern (格局, 八正格 or 建禄/月刃); branch relationships (刑沖合會害破);
+  Day Master strength (身强身弱) via a calibrated formula; following structures for extreme charts
+  (従格); seasonal adjustment (调候); bridging conflicting Ten Gods (通关); synthesizing all of the
+  above into one 喜用神/忌神 verdict; Major Luck Cycles and Annual Fortune (大运流年); and Special
+  Stars/Void (神煞、空亡, e.g. 桃花/驿马/华盖/魁罡/天乙贵人). Trigger for requests like 算一下这个
+  八字, 十神怎么算, 身强身弱, 喜用神, 什么格局, 从格吗, 调候用神, 大运流年怎么看, 有没有桃花,
+  空亡在哪, or any BaZi chart/concept raised, even without the word skill. This is an analytical
+  framework, not fortune-telling — frame conclusions as traditional-system outputs, not
+  deterministic predictions.
 ---
 
 # BaZi (Four Pillars) Analysis
@@ -20,7 +31,7 @@ Before running the workflow, judge whether the person wants a quick answer or a 
 
 ## Workflow (for full walkthroughs)
 
-1. **Parse the chart** — four pillars, each a Stem+Branch pair: Year, Month, Day, Hour. The Day Stem (日干) is the **Day Master** — everything else is read relative to it.
+1. **Parse the chart** — four pillars, each a Stem+Branch pair: Year, Month, Day, Hour. If the person gave a **raw birth date/time** instead of ready-made stem-branch pairs, compute the four pillars using `references/paipan.md` — its primary method is running a proper library (e.g. `lunar-python`, cross-validated against `sxtwl`/`cnlunar`) via `bash_tool`, not hand-calculating from memory, since manual epoch/节气 arithmetic is genuinely error-prone. The manual algorithm in that file is a fallback/teaching explanation, not the default method. The Day Stem (日干) is the **Day Master** — everything else is read relative to it.
 2. **List Five Elements + Yin-Yang** for every stem and every branch (see `references/stems_branches.md`).
 3. **Expand hidden stems (藏干)** for each branch — main qi / middle qi / residual qi (see `references/hidden_stems.md`).
 4. **Compute Ten Gods (十神)** for every stem and every hidden stem relative to the Day Master (see `references/ten_gods.md`).
@@ -46,6 +57,7 @@ Before running the workflow, judge whether the person wants a quick answer or a 
 
 Full tables are in `references/`. Load only what's needed:
 - `references/stems_branches.md` — 10 stems + 12 branches, Five Element + Yin-Yang for each, plus the 12-month calendar mapping.
+- `references/paipan.md` — computing the four pillars from a raw birth date/time: primary method is a cross-validated library (`lunar-python`/`sxtwl`/`cnlunar` via `bash_tool`), with the manual algorithm (年柱/月柱/日柱/时柱 derivation, 节气 boundaries, true-solar-time longitude correction, 五虎遁/五鼠遁) kept as fallback and teaching explanation, plus a worked example validated against all three libraries.
 - `references/hidden_stems.md` — full 藏干 table (main/middle/residual per branch) with the seasonal-transition logic (四正/四长生/四库 categories) and the twelve-stage (十二长生) long-life cycle table used to explain exceptions like 亥/午.
 - `references/ten_gods.md` — the Ten Gods derivation rule (生克关系 + 阴阳同异) and full 10x10 lookup table for any Day Master.
 - `references/gejv.md` — 正格 (regular pattern / 八格) rules: the 取格 priority ladder (月支本气/次气透干, fallback to strongest rooted stem), why 比劫 can't be a 格 (建禄/月刃 instead), 成格/败格 conditions for all eight 正格, and calibration tests.
