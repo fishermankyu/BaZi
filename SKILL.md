@@ -18,7 +18,15 @@ description: >
 
 A structured method for reading a four-pillar (八字) chart: from raw stems/branches through hidden stems, Ten Gods, and a quantified strength score. This mirrors a from-scratch tutoring conversation, so keep the same teach-by-derivation tone unless the user just wants a fast answer.
 
-## Workflow
+## Triage first — how much depth does this request actually need?
+
+Before running the workflow, judge whether the person wants a quick answer or a full walkthrough. Signals for **quick**: a narrow question ("我是身强还是身弱", "这个月对我好不好"), no request to see the derivation, casual phrasing. Signals for **full**: they paste a chart cold and ask to "算一下"/analyze it, ask to be walked through the logic, or are visibly in learning mode (see Tone notes below).
+
+- **Quick answer**: give the specific thing asked (e.g. just the 身强/身弱 classification, or just 喜用神) in a sentence or two. Run 従格/调候/通关 checks silently in the background only insofar as they change the headline answer (e.g. don't say "身弱" if it's actually a confirmed 従格 that inverts the reading) — but don't narrate the check itself or walk through congge.md/diaohou.md/tongguan.md's reasoning unless asked. One line answer, not a report.
+- **Full walkthrough**: run the complete 10-step workflow below, showing derivation at each stage per the Tone notes.
+- If genuinely ambiguous, default toward the shorter answer and offer to go deeper — don't pre-emptively dump the full derivation on someone who didn't ask for it.
+
+## Workflow (for full walkthroughs)
 
 1. **Parse the chart** — four pillars, each a Stem+Branch pair: Year, Month, Day, Hour. The Day Stem (日干) is the **Day Master** — everything else is read relative to it.
 2. **List Five Elements + Yin-Yang** for every stem and every branch (see `references/stems_branches.md`).
