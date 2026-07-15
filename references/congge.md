@@ -1,6 +1,6 @@
 # 従格 (Following Structures) — When the Ordinary Strength Formula Doesn't Apply
 
-Only relevant when Score% (from `strength_formula.md`) falls past the 极强 (>75%) or 极弱 (<25%) extremes. In the 35–75% range, don't check 従格 — the ordinary 扶抑 (support/drain) reading applies directly.
+Only relevant when Score% (from `strength_formula.md`) falls past the extreme thresholds defined there (§5, currently 极强 >75% / 极弱 <25%). Within the ordinary range (currently 35–75%), don't check 従格 — the ordinary 扶抑 (support/drain) reading applies directly.
 
 **School disagreement, flag this to the user if asked**: strict traditional 子平法 purists hold that 従格 only has two real members — 従财格 and 従杀格 — and dismiss 従儿格/従強格/従弱格/従旺格 as later "旺衰派" additions patched on to explain charts the older system couldn't classify. In practice, the fuller taxonomy below is what most modern teaching material and practitioners use, so this skill covers all of it — but say so if a user pushes on "is this really traditional," rather than presenting it as uncontested.
 
@@ -29,7 +29,7 @@ Only relevant when Score% (from `strength_formula.md`) falls past the 极强 (>7
 
 ## Integrating with the Score% workflow
 
-Only run this check when Score% is past 75%/25%. Sequence:
+Only run this check when Score% is past the extreme thresholds defined in `strength_formula.md` §5. Sequence:
 
 1. Check whether the month branch's main qi matches the direction implied by the extreme (従弱 needs month branch = 财/官杀/食伤; 従強 needs month branch = same element as Day Master or 印).
 2. Check whether that month branch main qi is transparent on a heavenly stem.
@@ -37,7 +37,7 @@ Only run this check when Score% is past 75%/25%. Sequence:
 4. Check overall purity — any significant scattered opposition disqualifies true 従格. If disqualified, say so explicitly and fall back to the ordinary 极强/极弱 reading from `strength_formula.md`, noting 従格 was considered.
 5. If a 従格 does qualify, name the specific subtype (not just "従格" generically) and give its favor/avoid list — this inverts or modifies the standard 印比劫 vs 官杀财食伤 heuristic from `strength_formula.md`, so don't apply that heuristic once a 従格 is confirmed.
 
-**Caveat to give the user**: 従格 is one of the more contested and easy-to-overclaim areas of BaZi — cite one source's warning that many practitioners mislabel ordinary weak/strong charts as 従格 because it has more prestige/drama attached, when the strict conditions above (especially "purity" and "root fully cleared") often aren't really met. Default to skepticism: an extreme Score% is necessary but not sufficient for 従格, and most 75%+/25%- charts will still fail one of the purity or transparency conditions and should be read as ordinary 极强/极弱 instead.
+**Caveat to give the user**: 従格 is one of the more contested and easy-to-overclaim areas of BaZi — cite one source's warning that many practitioners mislabel ordinary weak/strong charts as 従格 because it has more prestige/drama attached, when the strict conditions above (especially "purity" and "root fully cleared") often aren't really met. Default to skepticism: an extreme Score% is necessary but not sufficient for 従格, and most charts past the extreme thresholds (`strength_formula.md` §5) will still fail one of the purity or transparency conditions and should be read as ordinary 极强/极弱 instead.
 
 ## Calibration tests run against this workflow
 
